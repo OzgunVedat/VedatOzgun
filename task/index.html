@@ -1,0 +1,79 @@
+<!doctype html>
+
+<html lang="en">
+
+	<head>
+
+		<meta charset="utf-8">
+
+		<title>SIBLINGS/EARTHQUAKES/WEATHER</title>
+		<meta name="description" content="SIBLINGS/EARTHQUAKES/WEATHER">
+		<meta name="author" content="Paddy Evans">
+		<link rel="stylesheet" type="text/css" href="libs/css/style.css">
+		<link rel="stylesheet" href="libs/bootstrap/bootstrap.min.css">
+
+	</head>
+
+	<body>
+		<table class="table">
+			<tr>
+			  <th>API Name</th>
+			  <th>API description</th>
+			  <th></th>
+			</tr>
+			<tr>
+			  <td>Siblings</td>
+			  <td>
+			    <label>geonameId:</label>
+				<select id="geonameId">
+					<option value="3017382">3017382</option>
+					<option value="3041565">3041565</option>
+					<option value="783754">783754</option>
+					<option value="2782113">2782113</option>
+				</select>
+			  </td>
+			  <td>
+				<button class="btn btn-info" id="btnSiblings">submit</button></td>
+			</tr>
+			<tr>
+			  <td>Earthquakes</td>
+			  				<td>
+				 <label>north:</label>
+				 <input type="number" id="earthNorth" value="44.1">
+			     <label>south:</label>
+				 <input type="number" id="earthSouth" value="-9.9">
+				 <label>east:</label>
+				 <input type="number" id="earthEast" value="-22.4">
+			     <label>west:</label>
+				 <input type="number" id="earthWest" value="55.2">
+				</td>
+			  <td><button class="btn btn-info" id="btnEarthquakes">submit</button></td>
+			</tr>
+			<tr>
+				<td>Weather</td>
+				<td>
+				 <label>north:</label>
+				 <input type="number" id="weatherNorth" value="44.1">
+			     <label>south:</label>
+				 <input type="number" id="weatherSouth" value="-9.9">
+				 <label>east:</label>
+				 <input type="number" id="weatherEast" value="-22.4">
+			     <label>west:</label>
+				 <input type="number" id="weatherWest" value="55.2">
+				</td>
+				<td><button class="btn btn-info" id="btnWeather">submit</button></td>
+			  </tr>
+		  </table>
+
+		<br><br>
+
+		<div id="divResults">
+		</div>
+
+		<script type="application/javascript" src="libs/js/jquery-2.2.3.min.js"></script>
+		<script type="application/javascript" src="libs/js/script.js"></script>
+        <script src="libs/bootstrap/bootstrap.min.js"></script>
+
+	</body>
+
+</html>
