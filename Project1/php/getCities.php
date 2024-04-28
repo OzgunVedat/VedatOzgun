@@ -1,10 +1,9 @@
 <?php
 
-ini_set('display_errors', 'On');
-error_reporting(E_ALL);
+    ini_set('display_errors', 'On');
+    error_reporting(E_ALL);
 
-try{
-    $url = 'https://en.wikipedia.org/api/rest_v1/page/summary/' . $_REQUEST['country'] ;
+    $url ="http://api.geonames.org/searchJSON?country=" . $_REQUEST['country'] . '&maxRows=15&username=vdtozgun&style=LONG';
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -19,10 +18,10 @@ try{
     $output['status']['code'] = "200";
     $output['status']['name'] = "ok";
     $output['status']['description'] = "success";
-    $output['data'] = $decode;
+    $output['data'] = $decode['geonames'];
+
+
     echo json_encode($output);
-}
-catch(Exception $e){
-    echo "Sorry, there was an error: ".$e->getMessage();
-}
+
 ?>
+

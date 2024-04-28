@@ -2,7 +2,8 @@
 
 ini_set('display_errors', 'On');
 error_reporting(E_ALL);
-$url = 'http://api.weatherapi.com/v1/forecast.json?key=9ea6b7fc841946dd88d00952242804&q&q=' . $_REQUEST['capitalCity'] . '&days=3&aqi=no&alerts=no';
+
+$url = 'https://api.api-ninjas.com/v1/airports?X-Api-Key=4TTHei4rh8kNlVSTQcAeJw==Dli7fcvXyR1RBIaf&country=' . $_REQUEST['countryCode'] ;
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
