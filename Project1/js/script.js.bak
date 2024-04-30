@@ -433,7 +433,7 @@ function getWeather(capitalCity) {
     type: 'POST',
     dataType: 'json',
     data: {
-        capitalCity: capitalCity
+        capitaCity: capitalCity
     },
     success: function (result) {
             

@@ -7,20 +7,12 @@
   $country = [];
 
   foreach ($countryData['features'] as $feature) {
-
-    $temp = null;
-    $temp['code'] = $feature["properties"]['iso_a2'];
-    $temp['name'] = $feature["properties"]['name'];
-
-    array_push($country, $temp);
+	if($feature["properties"]['iso_a2'] == $_REQUEST['countryCode'])
+	{
+		$country = $feature;
+	}
    
   }
-
-  usort($country, function ($item1, $item2) {
-
-      return $item1['name'] <=> $item2['name'];
-
-  });
 
   $output['status']['code'] = "200";
   $output['status']['name'] = "ok";
