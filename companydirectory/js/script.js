@@ -956,68 +956,208 @@ function SearchLocations(text) {
 }
 
 function PersonnelTableBody(data){
-  const tableBody = document.querySelector("#personnelTableBody");
-  tableBody.innerHTML = "";
-  data.forEach(function (item) 
-  {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-    <td class="align-middle text-nowrap">${item.lastName}, ${item.firstName}</td>
-    <td class="align-middle text-nowrap d-none d-md-table-cell">${item.department}</td>
-    <td class="align-middle text-nowrap d-none d-md-table-cell">${item.jobTitle}</td>
-    <td class="align-middle text-nowrap d-none d-md-table-cell">${item.location}</td>
-    <td class="align-middle text-nowrap d-none d-md-table-cell">${item.email}</td>
-    <td class="text-end text-nowrap">
-      <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editPersonnelModal" data-id="${item.id}">
-        <i class="fa-solid fa-pencil fa-fw"></i>
-      </button>
-      <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#deletePersonnelModal" data-id="${item.id}">
-        <i class="fa-solid fa-trash fa-fw"></i>
-      </button>
-    </td>`;
-    tableBody.appendChild(row);
-  });
+  var frag = document.createDocumentFragment();
+         
+  data.forEach(function(item, index) {
+    
+    var row = document.createElement("tr");
+               
+    var name = document.createElement("td");
+    name.classList = "fw-bold";
+    name.setAttribute("data-id", item.lastName + "," + item.firstName)
+    
+    var name_Text = document.createTextNode(item.lastName + "," + item.firstName);
+    name.append(name_Text);
+    
+    row.append(name);
+    
+    var department = document.createElement("td");
+    var departmentText = document.createTextNode(item.department);
+    department.append(departmentText);
+    
+    row.append(department);
+
+    var jobTitle = document.createElement("td");
+    var jobTitleText = document.createTextNode(item.jobTitle);
+    jobTitle.append(jobTitleText);
+    
+    row.append(jobTitle);
+
+    var location = document.createElement("td");
+    var locationText = document.createTextNode(item.location);
+    location.append(locationText);
+    
+    row.append(location);
+
+    var email = document.createElement("td");
+    var emailText = document.createTextNode(item.email);
+    email.append(emailText);
+    
+    row.append(email);  
+    
+    var cell = document.createElement("td");
+    cell.classList = "text-end text-nowrap";
+
+    var editButton = document.createElement("BUTTON");
+    editButton.classList = "btn btn-primary btn-sm";
+    editButton.setAttribute("type","button");
+    editButton.setAttribute("style","margin-right: 16px");
+    editButton.setAttribute("data-bs-toggle","modal");
+    editButton.setAttribute("data-bs-target","#editPersonnelModal");
+    editButton.setAttribute("data-id",item.id);
+
+
+    var edit_i = document.createElement("i");
+    edit_i.classList = "fa-solid fa-pencil fa-fw";
+
+    editButton.append(edit_i);
+    
+    cell.append(editButton);
+
+    var deleteButton = document.createElement("BUTTON");
+    deleteButton.classList = "btn btn-primary btn-sm";
+    deleteButton.setAttribute("data-bs-toggle","modal");
+    deleteButton.setAttribute("data-bs-target","#deletePersonnelModal");
+    deleteButton.setAttribute("data-id",item.id);
+
+
+    var delete_i = document.createElement("i");
+    delete_i.classList = "fa-solid fa-trash fa-fw";
+
+    deleteButton.append(delete_i);
+
+    cell.append(deleteButton);
+    
+    row.append(cell);
+              
+    frag.append(row);
+
+  });                
+           
+  $('#personnelTableBody').empty().append(frag);
 }
 
 function DepartmentTableBody(data){
-  const tableBody = document.querySelector("#departmentTableBody");
-  tableBody.innerHTML = "";
-  data.forEach(function (item) 
-  {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-    <td class="align-middle text-nowrap">${item.department}</td>
-    <td class="align-middle text-nowrap d-none d-md-table-cell">${item.location}</td>
-    <td class="align-middle text-end text-nowrap">
-      <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editDepartmentModal" data-id="${item.id}">
-        <i class="fa-solid fa-pencil fa-fw"></i>
-      </button>
-      <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#deleteDepartmentModal" data-id="${item.id}">
-        <i class="fa-solid fa-trash fa-fw"></i>
-      </button>
-    </td>`;
-    tableBody.appendChild(row);
-  });
+  var frag = document.createDocumentFragment();
+         
+  data.forEach(function(item, index) {
+    
+    var row = document.createElement("tr");
+               
+    var department = document.createElement("td");
+    department.classList = "fw-bold";
+    department.setAttribute("data-id", item.department)
+    
+    var department_Text = document.createTextNode(item.department);
+    department.append(department_Text);
+    
+    row.append(department);
+
+    var location = document.createElement("td");
+    var locationText = document.createTextNode(item.location);
+    location.append(locationText);
+    
+    row.append(location);
+
+    var cell = document.createElement("td");
+    cell.classList = "text-end text-nowrap";
+
+    var editButton = document.createElement("BUTTON");
+    editButton.classList = "btn btn-primary btn-sm";
+    editButton.setAttribute("type","button");
+    editButton.setAttribute("style","margin-right: 16px");
+    editButton.setAttribute("data-bs-toggle","modal");
+    editButton.setAttribute("data-bs-target","#editDepartmentModal");
+    editButton.setAttribute("data-id",item.id);
+
+
+    var edit_i = document.createElement("i");
+    edit_i.classList = "fa-solid fa-pencil fa-fw";
+
+    editButton.append(edit_i);
+    
+    cell.append(editButton);
+
+    var deleteButton = document.createElement("BUTTON");
+    deleteButton.classList = "btn btn-primary btn-sm";
+    deleteButton.setAttribute("data-bs-toggle","modal");
+    deleteButton.setAttribute("data-bs-target","#deleteDepartmentModal");
+    deleteButton.setAttribute("data-id",item.id);
+
+
+    var delete_i = document.createElement("i");
+    delete_i.classList = "fa-solid fa-trash fa-fw";
+
+    deleteButton.append(delete_i);
+
+    cell.append(deleteButton);
+    
+    row.append(cell);        
+              
+    frag.append(row);
+
+  });                
+           
+  $('#departmentTableBody').empty().append(frag);
+
 }
 
 function LocationTableBody(data){
-  const tableBody = document.querySelector("#locationTableBody");
-  tableBody.innerHTML = "";
-  data.forEach(function (item) 
-  {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-    <td class="align-middle text-nowrap">${item.name}</td>
-    <td class="align-middle text-end text-nowrap">
-      <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editLocationModal" data-id="${item.id}">
-        <i class="fa-solid fa-pencil fa-fw"></i>
-      </button>
-      <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#deleteLocationModal" data-id="${item.id}">
-        <i class="fa-solid fa-trash fa-fw"></i>
-      </button>
-    </td>`;
-    tableBody.appendChild(row);
-  });
+  var frag = document.createDocumentFragment();
+         
+  data.forEach(function(item, index) {
+    
+    var row = document.createElement("tr");
+               
+    var name = document.createElement("td");
+    name.classList = "fw-bold";
+    name.setAttribute("data-id", item.name)
+    
+    var name_Text = document.createTextNode(item.name);
+    name.append(name_Text);
+    
+    row.append(name);
+
+    var cell = document.createElement("td");
+    cell.classList = "text-end text-nowrap";
+
+    var editButton = document.createElement("BUTTON");
+    editButton.classList = "btn btn-primary btn-sm";
+    editButton.setAttribute("type","button");
+    editButton.setAttribute("style","margin-right: 16px");
+    editButton.setAttribute("data-bs-toggle","modal");
+    editButton.setAttribute("data-bs-target","#editLocationModal");
+    editButton.setAttribute("data-id",item.id);
+
+
+    var edit_i = document.createElement("i");
+    edit_i.classList = "fa-solid fa-pencil fa-fw";
+
+    editButton.append(edit_i);
+    
+    cell.append(editButton);
+
+    var deleteButton = document.createElement("BUTTON");
+    deleteButton.classList = "btn btn-primary btn-sm";
+    deleteButton.setAttribute("data-bs-toggle","modal");
+    deleteButton.setAttribute("data-bs-target","#deleteLocationModal");
+    deleteButton.setAttribute("data-id",item.id);
+
+
+    var delete_i = document.createElement("i");
+    delete_i.classList = "fa-solid fa-trash fa-fw";
+
+    deleteButton.append(delete_i);
+
+    cell.append(deleteButton);
+    
+    row.append(cell);     
+              
+    frag.append(row);
+
+  });                
+           
+  $('#locationTableBody').empty().append(frag);
 }
 
 
