@@ -49,22 +49,11 @@ $("#searchInp").on("keyup", function () {
     
     if ($("#personnelBtn").hasClass("active")) {
       showFilterPersonnelModal ();
-      
-    
-      
     } else {
-      
       if ($("#departmentsBtn").hasClass("active")) {
         showFilterDepartmentModal();
-       
-        
-      } else {
-        $('#filterLocationModal').modal('show');
-       
-        
-      }
     }
-    
+  }
   });
   
   $("#addBtn").click(function () {
@@ -1165,19 +1154,28 @@ function showFilterPersonnelModal () {
 
   $.ajax({
     url:
-      "./php/getAllDepartments.php",
+      "./php/getAllDepartmentsAndLocations.php",
     type: "POST",
     dataType: "json",
     success: function (result) {
 
       var statusCode = result.status.code;
       if (statusCode == 200) {
-        result.data.forEach(function (item) 
+        result.data.department.forEach(function (item) 
           {
             $("#filterPersonnelDepartment").append(
               $("<option>", {
                 value: item.id,
                 text: item.department
+              })
+            );
+          });
+          result.data.location.forEach(function (item) 
+          {
+            $("#filterPersonnelLocation").append(
+              $("<option>", {
+                value: item.id,
+                text: item.name
               })
             );
           });
@@ -1220,51 +1218,80 @@ function showFilterDepartmentModal () {
   });
 }
 
-document.getElementById("filterPersonnelForm").addEventListener("submit", (e) => {
-  e.preventDefault();
-
- 
-  let firstName = document.getElementById("filterPersonnelFirstName");
-  let lastName = document.getElementById("filterPersonnelLastName");
-  let jobTitle = document.getElementById("filterPersonnelJobTitle");
-  let email = document.getElementById("filterPersonnelEmailAddress");
-  let departmentID = document.getElementById("filterPersonnelDepartment");
- 
-  $.ajax({
-      url:
-        "./php/filterPersonnels.php",
-      type: "POST",
-      dataType: "json",
-      data: {
-        firstName: firstName.value, 
-        lastName: lastName.value,
-        jobTitle: jobTitle.value,
-        email: email.value,
-        departmentID: departmentID.value 
-      },
-      success: function (result) {
-        var resultCode = result.status.code;
+$("#filterPersonnelDepartment").change(function () {
   
-        if (resultCode == 200) {
-
-          $('#filterPersonnelModal').modal('hide');
-          PersonnelTableBody(result.data.found);
-          
-        } else {
-        }
-      },
-      error: function (jqXHR, textStatus, errorThrown) {
-        console.log(textStatus, errorThrown);
+  if (this.value > 0) {
     
-      }
-    });
-});
+    $("#filterPersonnelLocation").val(0);
+    
+    let departmentID = document.getElementById("filterPersonnelDepartment");
+    let locationID = document.getElementById("filterPersonnelLocation");
+   
+    $.ajax({
+        url:
+          "./php/filterPersonnels.php",
+        type: "POST",
+        dataType: "json",
+        data: {
+          locationID: locationID.value,
+          departmentID: departmentID.value 
+        },
+        success: function (result) {
+          var resultCode = result.status.code;
+    
+          if (resultCode == 200) {
+            PersonnelTableBody(result.data.found);
+            
+          } else {
+          }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          console.log(textStatus, errorThrown);
+      
+        }
+      });
+      
+  }
+})
 
-document.getElementById("filterDepartmentsForm").addEventListener("submit", (e) => {
-  e.preventDefault();
+$("#filterPersonnelLocation").change(function () {
 
- 
-  let name = document.getElementById("filterDepartmentName");
+  if (this.value > 0) {
+    
+    $("#filterPersonnelDepartment").val(0);
+    
+    let departmentID = document.getElementById("filterPersonnelDepartment");
+    let locationID = document.getElementById("filterPersonnelLocation");
+   
+    $.ajax({
+        url:
+          "./php/filterPersonnels.php",
+        type: "POST",
+        dataType: "json",
+        data: {
+          locationID: locationID.value,
+          departmentID: departmentID.value 
+        },
+        success: function (result) {
+          var resultCode = result.status.code;
+    
+          if (resultCode == 200) {
+            PersonnelTableBody(result.data.found);
+            
+          } else {
+          }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          console.log(textStatus, errorThrown);
+      
+        }
+      });
+      
+  }
+})
+
+$("#filterDepartmentLocation").change(function () {
+  
   let locationID = document.getElementById("filterDepartmentLocation");
  
   $.ajax({
@@ -1273,15 +1300,12 @@ document.getElementById("filterDepartmentsForm").addEventListener("submit", (e) 
       type: "POST",
       dataType: "json",
       data: {
-        name: name.value, 
         locationID: locationID.value 
       },
       success: function (result) {
         var resultCode = result.status.code;
   
         if (resultCode == 200) {
-
-          $('#filterDepartmentModal').modal('hide');
           DepartmentTableBody(result.data.found);
           
         } else {
@@ -1292,38 +1316,6 @@ document.getElementById("filterDepartmentsForm").addEventListener("submit", (e) 
     
       }
     });
-});
-
-document.getElementById("filterLocationForm").addEventListener("submit", (e) => {
-  e.preventDefault();
-
- 
-  let name = document.getElementById("filterLocation");
- 
-  $.ajax({
-      url:
-        "./php/filterLocations.php",
-      type: "POST",
-      dataType: "json",
-      data: {
-        name: name.value 
-      },
-      success: function (result) {
-        var resultCode = result.status.code;
-  
-        if (resultCode == 200) {
-
-          $('#filterLocationModal').modal('hide');
-          LocationTableBody(result.data.found);
-          
-        } else {
-        }
-      },
-      error: function (jqXHR, textStatus, errorThrown) {
-        console.log(textStatus, errorThrown);
-    
-      }
-    });
-});
+})
 
 

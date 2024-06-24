@@ -1,9 +1,9 @@
 <?php
 
 	// example use from browser
-	// http://localhost/companydirectory/libs/php/searchAll.php?txt=<txt>
+	// http://localhost/companydirectory/libs/php/getAllDepartments.php
 
-	// remove next two lines for production
+	// remove next two lines for production	
 	
 	ini_set('display_errors', 'On');
 	error_reporting(E_ALL);
@@ -32,17 +32,13 @@
 
 	}	
 
-	// first query - SQL statement accepts parameters and so is prepared to avoid SQL injection.
-	// $_REQUEST used for development / debugging. Remember to change to $_POST for production
+	// SQL does not accept parameters and so is not prepared
 
-  $query = $conn->prepare('SELECT `d`.`id`, `d`.`name` AS `department`, `l`.`id` as `locationID`, `l`.`name` AS `location` FROM `department` `d` LEFT JOIN `location` `l` ON (`l`.`id` = `d`.`locationID`) WHERE (? = "0" or `l`.`id` = ?) ORDER BY `d`.`name`, `l`.`name`');
+	$query = 'SELECT d.id, d.name AS department FROM department d  ORDER BY d.name';
 
-
-  $query->bind_param("ss", $_REQUEST['locationID'], $_REQUEST['locationID']);
-
-	$query->execute();
+	$result = $conn->query($query);
 	
-	if (false === $query) {
+	if (!$result) {
 
 		$output['status']['code'] = "400";
 		$output['status']['name'] = "executed";
@@ -56,14 +52,39 @@
 		exit;
 
 	}
-    
-	$result = $query->get_result();
-
-  $found = [];
+   
+	$department = [];
 
 	while ($row = mysqli_fetch_assoc($result)) {
 
-		array_push($found, $row);
+		array_push($department, $row);
+
+	}
+
+	$query = 'SELECT id, name from location ORDER BY name';
+
+	$result = $conn->query($query);
+	
+	if (!$result) {
+
+		$output['status']['code'] = "400";
+		$output['status']['name'] = "executed";
+		$output['status']['description'] = "query failed";	
+		$output['data'] = [];
+
+		mysqli_close($conn);
+
+		echo json_encode($output); 
+
+		exit;
+
+	}
+   
+   	$location = [];
+
+	while ($row = mysqli_fetch_assoc($result)) {
+
+		array_push($location, $row);
 
 	}
 
@@ -71,7 +92,8 @@
 	$output['status']['name'] = "ok";
 	$output['status']['description'] = "success";
 	$output['status']['returnedIn'] = (microtime(true) - $executionStartTime) / 1000 . " ms";
-	$output['data']['found'] = $found;
+	$output['data']['department'] = $department;
+	$output['data']['location'] = $location;
 	
 	mysqli_close($conn);
 

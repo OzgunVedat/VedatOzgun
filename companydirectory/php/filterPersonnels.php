@@ -35,10 +35,10 @@
 	// first query - SQL statement accepts parameters and so is prepared to avoid SQL injection.
 	// $_REQUEST used for development / debugging. Remember to change to $_POST for production
 
-  $query = $conn->prepare('SELECT `p`.`id`, `p`.`firstName`, `p`.`jobTitle`, `p`.`lastName`, `p`.`email`, `d`.`id` as `departmentID`, `d`.`name` AS `department`, `l`.`id` as `locationID`, `l`.`name` AS `location` FROM `personnel` `p` LEFT JOIN `department` `d` ON (`d`.`id` = `p`.`departmentID`) LEFT JOIN `location` `l` ON (`l`.`id` = `d`.`locationID`) WHERE (? = "" or `p`.`firstName` = ?)  AND (? = "" or `p`.`lastName` = ?) AND (? = "" or `p`.`jobTitle` = ?) AND (? = "" or `p`.`email` = ?) AND (? = "" or `d`.`id` = ?) ORDER BY `p`.`lastName`, `p`.`firstName`, `d`.`name`, `l`.`name`');
+  $query = $conn->prepare('SELECT `p`.`id`, `p`.`firstName`, `p`.`jobTitle`, `p`.`lastName`, `p`.`email`, `d`.`id` as `departmentID`, `d`.`name` AS `department`, `l`.`id` as `locationID`, `l`.`name` AS `location` FROM `personnel` `p` LEFT JOIN `department` `d` ON (`d`.`id` = `p`.`departmentID`) LEFT JOIN `location` `l` ON (`l`.`id` = `d`.`locationID`) WHERE (? = "0" or `d`.`id` = ?) And  (? = "0" or `l`.`id` = ?) ORDER BY `p`.`lastName`, `p`.`firstName`, `d`.`name`, `l`.`name`');
 
 
-  $query->bind_param("ssssssssss", $_REQUEST['firstName'], $_REQUEST['firstName'], $_REQUEST['lastName'], $_REQUEST['lastName'], $_REQUEST['jobTitle'], $_REQUEST['jobTitle'], $_REQUEST['email'], $_REQUEST['email'], $_REQUEST['departmentID'], $_REQUEST['departmentID']);
+  $query->bind_param("ssss", $_REQUEST['departmentID'], $_REQUEST['departmentID'], $_REQUEST['locationID'], $_REQUEST['locationID']);
 
 
 	$query->execute();

@@ -312,39 +312,26 @@
         <form id="filterPersonnelForm">
 
           <input type="hidden" id="filterPersonnelEmployeeID">
-
-          <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="filterPersonnelFirstName" placeholder="First name" >
-            <label for="filterPersonnelFirstName">First name</label>
-          </div>
-
-          <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="filterPersonnelLastName" placeholder="Last name" >
-            <label for="filterPersonnelLastName">Last name</label>
-          </div>    
-          
-          <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="filterPersonnelJobTitle" placeholder="Job Title" >
-            <label for="filterPersonnelJobTitle">Job title</label>
-          </div> 
-
-          <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="filterPersonnelEmailAddress" placeholder="Email address" >
-            <label for="filterPersonnelEmailAddress">Email Address</label>
-          </div>    
-
+         
           <div class="form-floating">
             <select class="form-select" id="filterPersonnelDepartment" placeholder="Department">
+              <option value="0">All</option>
             </select>
             <label for="filterPersonnelDepartment">Department</label>
-          </div>  
+          </div> 
+
+          <div class="form-floating">
+            <select class="form-select" id="filterPersonnelLocation" placeholder="Location">
+              <option value="0">All</option>
+            </select>
+            <label for="filterDepartmentLocation">Location</label>
+          </div> 
 
         </form>
 
       </div>
 
       <div class="modal-footer">
-        <button type="submit" form="filterPersonnelForm" class="btn btn-outline-primary btn-sm myBtn">SEARCH</button>
         <button type="button" class="btn btn-outline-primary btn-sm myBtn" data-bs-dismiss="modal">CANCEL</button>
       </div>
  
@@ -374,14 +361,9 @@
 
           <input type="hidden" id="filterDepartmentID">
 
-          <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="filterDepartmentName" placeholder="Department">
-            <label for="filterDepartmentName">Department</label>
-          </div>
-
-
           <div class="form-floating">
             <select class="form-select" id="filterDepartmentLocation" placeholder="Location">
+              <option value="0">All</option>
             </select>
             <label for="filterDepartmentLocation">Location</label>
           </div>  
@@ -391,46 +373,6 @@
       </div>
 
       <div class="modal-footer">
-        <button type="submit" form="filterDepartmentsForm" class="btn btn-outline-primary btn-sm myBtn">SEARCH</button>
-        <button type="button" class="btn btn-outline-primary btn-sm myBtn" data-bs-dismiss="modal">CANCEL</button>
-      </div>
- 
-    </div>
-    
-  </div>
-  
-</div>
-<!--   Location   -->
-<div id="filterLocationModal" class="modal fade" tabindex="-1" data-bs-backdrop="false" data-bs-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  
-  <!--   the last two classes centre the modal and, if the content is too long, ensures  -->
-  <!--   that the header and footer are always on display by making the body scroll -->
-  
-  <div class="modal-dialog modal-sm modal-dialog-centered modal-dialog-scrollable">
-       
-    <div class="modal-content shadow"> 
-      
-      <div class="modal-header bg-primary bg-gradient text-white">
-        <h5 class="modal-title">Filter location</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-
-      <div class="modal-body">
-          
-        <form id="filterLocationForm">
-
-          <input type="hidden" id="filterLocationID">
-
-          <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="filterLocation" placeholder="Location" required="">
-            <label for="filterLocation">Location</label>
-          </div>
-        </form>
-
-      </div>
-
-      <div class="modal-footer">
-        <button type="submit" form="filterLocationForm" class="btn btn-outline-primary btn-sm myBtn">SEARCH</button>
         <button type="button" class="btn btn-outline-primary btn-sm myBtn" data-bs-dismiss="modal">CANCEL</button>
       </div>
  
